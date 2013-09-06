@@ -1,7 +1,7 @@
 bfurlmigrate
 ============
 
-Author: David Sayre / david.sayre@beaconfire.com, david.sayre@itepersona.com
+Author: David Sayre
 
 Purpose: read url for known path and map into ez object/node
 
