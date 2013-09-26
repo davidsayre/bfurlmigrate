@@ -46,5 +46,27 @@
         	return false;
 		}
 
+		public static function getUrlByRemoteId($remote_id){
+
+			$sSourceUrl = '';
+			$remote_id = trim($remote_id);
+		
+			if(!$remote_id) {return '';}
+
+			//query contentobject from remote_id match link lookup from url
+			$query = "SELECT url from ".self::URL_SOURCE_LINK_TABLE." where remote_id='".$remote_id."'";        	
+
+			$db = eZDB::instance();	
+        	$aResult = $db->arrayQuery( $query, array( 'limit' => 1 ) );
+        	if(count($aResult) == 1) {
+			
+				//echo 'found url match'."\n";
+				if(array_key_exists('url',$aResult[0])) {
+					$sSourceUrl = $aResult[0]['url'];
+				}        	
+			}
+			return $sSourceUrl;
+		}
+
 	}
 ?>

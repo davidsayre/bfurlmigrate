@@ -3,4 +3,7 @@
 [RoleSettings]
 PolicyOmitList[]=bfurlmigrate
 
+[TemplateSettings]
+ExtensionAutoloadPath[]=bfurlmigrate
+
 */ ?>
