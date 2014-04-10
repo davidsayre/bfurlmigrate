@@ -22,3 +22,4 @@ Install:
 
 	example: 
 		RewriteRule ^.*story.jhtml.* index_bfurlmigrate\.php [L]
+		RewriteRule index_bfurlmigrate\.php - [L]
