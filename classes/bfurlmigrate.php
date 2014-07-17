@@ -3,7 +3,6 @@
 /*
 	bf Url Migrate
 	Purpose: convert url into node via remote_id
-	use in conjunction with data_import
 	index_bfurlmigrate.php is a standalone version so update as needed
 
 */
@@ -12,15 +11,12 @@
 		const URL_SOURCE_LINK_TABLE = 'bfurlmigrate';
 
 		function getNewUri($uriString) {
-			//echo 'try old url '.$uriString;
-			
+						
 			//query contentobject from remote_id match link lookup from url
-			$query = "SELECT eco.id as contentobject_id from ezcontentobject eco, ".self::URL_SOURCE_LINK_TABLE." lookup where lookup.remote_id = eco.remote_id and lookup.url = '" .$uriString. "'";        	
-			
 			$db = eZDB::instance();	
-        	$aContent = $db->arrayQuery( $query, array( 'limit' => 1 ) );   
-
-        	//print_r($aContent);
+			$sUri = $db->escapeString($uriString);
+			$query = "SELECT eco.id as contentobject_id from ezcontentobject eco, bfurlmigrate bfum where bfum.remote_id = eco.remote_id and bfum.url = '".$sUri."'";     	
+			$aContent = $db->arrayQuery( $query, array( 'limit' => 1 ) );   
 
 			if(count($aContent) == 1) {
 				//echo 'found url match'."\n";

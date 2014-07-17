@@ -11,7 +11,7 @@
 		RewriteRule index_bfurlmigrate\.php - [L]
 
 	example: 
-		RewriteRule ^pnd/news/.*?(html|jhtml) index_bfurlmigrate\.php [L]
+		RewriteRule ^story.jhtml(.*) index_bfurlmigrate\.php [L]
 		
 */
 
@@ -89,8 +89,9 @@ eZExtension::activateExtensions( 'access' );
 */
 function getNewUri($uriString) {
 	//query contentobject from remote_id match link lookup from url
-	$query = "SELECT eco.id as contentobject_id from ezcontentobject eco, bfurlmigrate bfum where bfum.remote_id = eco.remote_id and bfum.url = '" .$uriString. "'";        	
 	$db = eZDB::instance();	
+	$sUri = $db->escapeString($uriString);
+	$query = "SELECT eco.id as contentobject_id from ezcontentobject eco, bfurlmigrate bfum where bfum.remote_id = eco.remote_id and bfum.url = '".$sUri."'";     	
 	$aContent = $db->arrayQuery( $query, array( 'limit' => 1 ) );   
 	if(count($aContent) == 1) {
 		if(array_key_exists('contentobject_id',$aContent[0])) {
